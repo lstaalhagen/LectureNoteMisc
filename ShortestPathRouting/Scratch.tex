@@ -1,0 +1,25 @@
+In the
+first case, the edges include an arrowhead to indicate the
+direction of the communication; this edge is then said to be a
+\emph{directed} edge. A graph with directed edges are referred to, as a directed graph.
+
+A graph is said to be \emph{directed} if it includes one or more directed edges; otherwise the graph is \emph{undirected}.
+
+
+Every edge in the graph is associated with a metric (a number)
+that represents the "length" of that edge, so that the path from a
+source node to a destination node has a total length of the sum of
+the length of the edges that are part of the path. In this sense,
+the link--metrics are said to be \emph{additive}.
+
+The function that is used to generate the metric is chosen by the
+network operator to reflect his preferences, for instance that the
+paths determined tend to favor low--delay links and tend to avoid
+high--cost links.
+
+Note
+that the results of these algorithms are not just the shortest path
+from a given source node to a given destination node, but instead a
+set of shortets--paths, e.g. the shortest--paths from a given
+source--node to \emph{all} other destination nodes.
+

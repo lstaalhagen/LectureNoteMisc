@@ -1,0 +1,325 @@
+﻿\section{Harmoniske funktioner og ortogonalitet}
+Ved analyse af periodiske funktioner er det relevant at introducere to ($\mathbb{R}\mapsto\mathbb{R}$) reelle harmoniske funktioner, nemlig $\cos()$ og $\sin()$, der allerede kendes fra tidligere.
+
+Det er endvidere relevant at introducere begrebet ortogonalitet mellem funktioner: To reelle funktioner, $s_{1}(t)$ og $s_{2}(t)$, ($s_{1},s_{2}:\mathbb{R}\mapsto\mathbb{R}$) kaldes for \emph{ortogonale} over et interval $\left[ a ; b \right]$, hvis flg. relation er opfyldt:
+\begin{equation}\label{eq:ortho}
+\int_{a}^{b} s_{1}(t)\cdot{}s_{2}(t)\;{}dt = 0
+\end{equation} 
+
+\noindent{}For ovennævnte reelle harmoniske funktioner ($\cos()$ og $\sin()$) gælder flg. mht. ortogonalitet:
+\begin{enumerate}
+	%
+	\item To harmoniske $\cos()$- og/eller $\sin()$-funktioner med \emph{forskellige} frekvenser (der dog begge er et multiplum af samme grundfrekvens, $f_0$), er ortogonale over intervallet $\left[ 0 ; 1/f_{0} \right]$, dvs.:
+	\begin{gather} 
+	\int_{0}^{P}\cos(2\pi\cdot{}k_{1}\cdot{}f_{0}\cdot{}t)\cdot{}\cos(2\pi\cdot{}k_{2}\cdot{}f_{0}\cdot{}t)\;dt = 0\quad{}\textrm{for}\quad{}k_{1}\ne{}k_{2}\\
+	\int_{0}^{P}\cos(2\pi\cdot{}k_{1}\cdot{}f_{0}\cdot{}t)\cdot{}\sin(2\pi\cdot{}k_{2}\cdot{}f_{0}\cdot{}t)\;dt = 0\quad{}\textrm{for}\quad{}k_{1}\ne{}k_{2}\\
+	\int_{0}^{P}\sin(2\pi\cdot{}k_{1}\cdot{}f_{0}\cdot{}t)\cdot{}\sin(2\pi\cdot{}k_{2}\cdot{}f_{0}\cdot{}t)\;dt = 0\quad{}\textrm{for}\quad{}k_{1}\ne{}k_{2}
+	\end{gather}
+	%
+	\item En harmonisk $\cos()$-funktion og en harmonisk $\sin()$-funktion med samme frekvens, $f_{1}$, er ortogonale over intervallet $\left[ 0 ; 1/f_{0} \right]$, dvs.:
+	\begin{equation} 
+	\int_{0}^{P}\cos(2\pi\cdot{}k_{1}\cdot{}f_{1}\cdot{}t)\cdot{}\sin(2\pi\cdot{}k_{1}\cdot{}f_{1}\cdot{}t)\;dt = 0
+	\end{equation}
+	%
+	\item Til gengæld er hverken $\cos()$- eller $\sin()$-funktionerne ortogonal med sig selv. For både $\cos()$- og $\sin()$-funktionerne fås:
+	\begin{gather}
+	\int_{0}^{P}\cos(2\pi\cdot{}k\cdot{}f_{0}\cdot{}t)\cdot{}\cos(2\pi\cdot{}k\cdot{}f_{0}\cdot{}t)\;dt = \frac{P}{2} \\
+	\int_{0}^{P}\sin(2\pi\cdot{}k\cdot{}f_{0}\cdot{}t)\cdot{}\sin(2\pi\cdot{}k\cdot{}f_{0}\cdot{}t)\;dt = \frac{P}{2} \\
+	\end{gather}
+\end{enumerate}
+
+
+
+
+Signalet i figur~\ref{fig:cos} bestod af kun én frekvens, men et periodisk signal kan også bestå af en række frekvenser. Hvis perioden for signalet skal være endeligt, skal forholdet mellem to vilkårlige frekvenser i signalet være et rationelt tal. Hvis dette er tilfældet, kan alle frekvenserne i signalet udtrykkes som et multiplum af en given grundfrekvens, kaldet $f_0$ i det følgende, fås et udtryk (i tidsdomænet) for signalet som:
+\begin{equation}\label{eq:multfreq}
+\begin{array}{rcl}
+s(t) & = & C_{0}\cdot{}cos(2\pi\cdot{}0\cdot{}f_{0}\cdot{}t) + \\
+     &   & C_{1}\cdot{}cos(2\pi\cdot{}1\cdot{}f_{0}\cdot{}t+\phi_{1}) + \\
+     &   & C_{2}\cdot{}cos(2\pi\cdot{}2\cdot{}f_{0}\cdot{}t+\phi_{2}) + \\
+     &   & C_{3}\cdot{}cos(2\pi\cdot{}3\cdot{}f_{0}\cdot{}t+\phi_{3}) + \ldots \\
+     & = & C_0 + \\
+     &   & C_{1}\cdot{}cos(2\pi\cdot{}1\cdot{}f_{0}\cdot{}t+\phi_{1}) + \\
+     &   & C_{2}\cdot{}cos(2\pi\cdot{}2\cdot{}f_{0}\cdot{}t+\phi_{2}) + \\
+     &   & C_{3}\cdot{}cos(2\pi\cdot{}3\cdot{}f_{0}\cdot{}t+\phi_{3}) + \ldots \\
+\end{array}
+\end{equation}
+\noindent{}hvor de forskellige $C_{k}$ værdier godt kan være 0, hvis frekvensen $k\cdot{}f_{0}$ ikke indgår i signalet. Bemærk at der for hver frekvens (større end 0) desuden er indført en fase-værdi ($\phi_{k}$), for at repræsentere, at cosinus-funktionen ved den pågældende frekvens ikke har maksimum ved $t=0$. Udtrykket i~\ref{eq:multfreq} kan skrives kortere som vist i~(\ref{eq:multfreq2}).
+\begin{equation}\label{eq:multfreq2}
+s(t) = C_{0} + \sum_{k=1}^{\infty} C_{k}\cdot{}cos(2\pi\cdot{}k\cdot{}f_{0}\cdot{}t+\phi_{k})
+\end{equation}
+
+\noindent{}For at "slippe af" med fasen i de enkelte frekvenser benyttes relationen $cos(\alpha+\beta)=cos(\alpha)\cdot{}cos(\beta)+sin(\alpha)\cdot{}sin(\beta)$ til at omskrive~(\ref{eq:multfreq2}) til~(\ref{eq:multfreq3}).
+\begin{equation}\label{eq:multfreq3}
+s(t) = A_{0} + \sum_{k=1}^{\infty} \left\lbrace A_{k}\cdot{}cos(2\pi\cdot{}k\cdot{}f_{0}\cdot{t}) + B_{k}\cdot{}sin(2\pi\cdot{}k\cdot{}f_{0}\cdot{t}) \right\rbrace
+\end{equation}
+\noindent{}hvor $A_{k}=C_{k}\cdot{}cos(\phi_{k})$ og $B_{k}=-C_{k}\cdot{}sin(\phi_{k})$.
+
+Konklusionen er derfor, at ethvert periodisk signal kan skrives som et konstant bidrag ($A_{0}$) plus en sum af cos()- og sin()-funktioner med uafhængige amplituder og frekvenser, der alle er et multiplum af en grundfrekvens, $f_{0}$.
+
+\subsection{Aperiodiske signaler}
+Modsætningen til periodiske signaler er \emph{aperiodiske} signaler, hvor ligning~\ref{eq:periodic} \emph{ikke} er opfyldt for nogen (endelig) værdi af $P$. Dette betyder også, at forholdet mellem to vilkårlige frekvenser i signalet ikke nødvendigvis er et rationelt tal.
+
+Specielt vil stokastiske signaler, hvor signalets værdi til alle tidspunkter er tilfældig, som illustreret i figur~\ref{fig:stochasticsignal}, være eksempler på aperiodiske signaler.
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.7]{stochastic_signal}
+\caption{\label{fig:stochasticsignal}Stokastisk signal.}
+\end{figure}
+
+\noindent{}Specielt fås, at $\sin(2\pi\cdot{}f_{1}\cdot{}t)$ og $sin(2\pi\cdot{}f_{2}\cdot{}t)$ er ortogonale for $f_{1}\ne{}f_{2}$ (hvis der integreres over et tidsrum, der svarer til et helt antal periode af begge funktioner), og at $sin(2\pi\cdot{}f\cdot{}t)$ og $cos(2\pi\cdot{}f\cdot{}t)$ også er indbyrdes ortogonale.
+
+Hvis man betragter to cos()-funktioner med frekvenser hhv. $k\cdot{}f_{0}$ og $l\cdot{}f_{0}$ fås ($P = 1/f_{0}$):
+\begin{multline}\label{eq:ortho1}
+\int_{0}^{P}\left\lbrace{}cos(2\pi\cdot{}k\cdot{}f_{0}\cdot{}t)\cdot{}cos(2\pi\cdot{}l\cdot{}f_{0}\cdot{}t)\right\rbrace\;dt=\\
+\int_{0}^{P}\frac{1}{2}\left\lbrace{}cos(2\pi\cdot{}(k+l)\cdot{}f_{0}\cdot{}t)+cos(2\pi\cdot{}(k-l)\cdot{}f_{0}\cdot{}t)\right\rbrace\;dt=\\
+\frac{1}{2}\int_{0}^{P}cos(2\pi\cdot{}(k+l)\cdot{}f_{0}\cdot{}t)\;dt + \frac{1}{2}\int_{0}^{P}cos(2\pi\cdot{}(k-l)\cdot{}f_{0}\cdot{}t)\;dt 
+\end{multline}
+\noindent{}hvor der er benyttet, at $cos(\alpha)\cdot{}cos(\beta)=cos(\alpha+\beta)/2+cos(\alpha-\beta)/2$. Da både $k$ og $l$ er positive heltal, vil det første integrale i sidste linje af ligning~(\ref{eq:ortho1}) blot være 0, fordi der integreres over et helt antal perioder af cos(), dvs.:
+\begin{equation}\label{eq:ortho2}
+\int_{0}^{P}\left\lbrace{}cos(2\pi\cdot{}k\cdot{}f_{0}\cdot{}t)\cdot{}cos(2\pi\cdot{}l\cdot{}f_{0}\cdot{}t)\right\rbrace\;dt=\frac{1}{2}\int_{0}^{P}cos(2\pi\cdot{}(k-l)\cdot{}f_{0}\cdot{}t)\;dt
+\end{equation}
+\noindent{}Hvis $k\ne{}l$ vil højresiden af ligning~(\ref{eq:ortho2}) også blot være et integrale over et helt antal perioder af en cos()-funktion, dvs. have værdien 0. Hvis $k=l$ fås derimod:
+\begin{equation}\label{eq:ortho3}
+\int_{0}^{P}\left\lbrace{}cos(2\pi\cdot{}k\cdot{}f_{0}\cdot{}t)\cdot{}cos(2\pi\cdot{}l\cdot{}f_{0}\cdot{}t)\right\rbrace\;dt=\frac{1}{2}\int_{0}^{P}cos(2\pi\cdot{}0\cdot{}f_{0}\cdot{}t)\;dt=\frac{1}{2}\int_{0}^{P}1\;dt=\frac{P}{2}
+\end{equation}
+
+Dvs.:
+\begin{equation}\label{eq:orthocoscos}
+\int_{0}^{P}\left\lbrace{}cos(2\pi\cdot{}k\cdot{}f_{0}\cdot{}t)\cdot{}cos(2\pi\cdot{}l\cdot{}f_{0}\cdot{}t)\right\rbrace\;dt=\left\lbrace
+\begin{array}{ll}
+0 & \textrm{for }k\ne{}l\\
+\frac{P}{2} & \textrm{for }k=l
+\end{array}\right.
+\end{equation}
+
+\noindent{}Ved at anvende relationerne
+\begin{align}
+sin(\alpha)\cdot{}cos(\beta) &= sin(\alpha-\beta)/2+sin(\alpha+\beta)/2 \\
+sin(\alpha)\cdot{}sin(\beta) &= cos(\alpha-\beta)/2-cos(\alpha+\beta)/2
+\end{align} 
+\noindent{}kan man på tilsvarende måde vise, at
+\begin{equation}\label{eq:orthocossin}
+\int_{0}^{P}\left\lbrace{}sin(2\pi\cdot{}k\cdot{}f_{0}\cdot{}t)\cdot{}cos(2\pi\cdot{}l\cdot{}f_{0}\cdot{}t)\right\rbrace\;dt=0
+\end{equation}
+\noindent{}og at
+\begin{equation}\label{eq:orthosinsin}
+\int_{0}^{P}\left\lbrace{}sin(2\pi\cdot{}k\cdot{}f_{0}\cdot{}t)\cdot{}sin(2\pi\cdot{}l\cdot{}f_{0}\cdot{}t)\right\rbrace\;dt=\left\lbrace
+\begin{array}{ll}
+0 & \textrm{for }k\ne{}l\\
+\frac{P}{2} & \textrm{for }k=l
+\end{array}\right.
+\end{equation}
+\noindent{}Bemærk at hvis integranden er et produkt af \emph{samme} trigonomeriske funktion (dvs. enten $cos(\ldots{})\cdot{}cos(\ldots{})$ eller $sin(\ldots{})\cdot{}sin(\ldots{})$) (ligningerne~(\ref{eq:orthocoscos}) og~(\ref{eq:orthosinsin})) afhænger resultatet af frekvenserne, således at resultatet er $0$ hvis frekvenserne er forskellige, og kun forskellig fra $0$ hvis frekvenserne er ens, mens hvis integranden er et produkt af forskellige trigonometriske funktioner vil resultatet altid være $0$, jf. ligning~(\ref{eq:orthocossin}).
+
+Dette kan benyttes, hvis man har et ukendt signal (der dog vides at være periodisk med perioden $P_0$) og ønsker at bestemme dets $A_k$ og $B_k$ koefficienter. Hvis man f.eks. ønsker at bestemme koefficienten, $A_k$ kan man udregne (bemærk at $f_{0} = 1/P$)
+\begin{multline}\label{eq:ortho4}
+%
+\int_{0}^{P}s(t)\cdot{}cos(2\pi\cdot{}k\cdot{}f_{0}\cdot{}t)\;dt \quad{}=\\
+%
+\int_{0}^{P}\left({}A_{0} + \sum_{l=1}^{\infty} \left\lbrace A_{l}\cdot{}cos(2\pi\cdot{}l\cdot{}f_{0}\cdot{t}) + B_{l}\cdot{}sin(2\pi\cdot{}l\cdot{}f_{0}\cdot{t}){} \right\rbrace\right)\cdot{}cos(2\pi\cdot{}k\cdot{}f_{0}\cdot{}t)\;dt=\\
+%
+\begin{split}
+& A_{0}\cdot\int_{0}^{P}cos(2\pi\cdot{}f_{0}\cdot{}t)\;dt + \\
+& \sum_{l=1}^{\infty}\left\lbrace{}A_{l}\cdot\int_{0}^{P}cos(2\pi\cdot{}l\cdot{}f_{0}\cdot{t})\cdot{}cos(2\pi\cdot{}k\cdot{}f_{0}\cdot{}t)\;dt\right\rbrace + \\
+& \sum_{l=1}^{\infty}\left\lbrace{}B_{l}\cdot\int_{0}^{P}sin(2\pi\cdot{}l\cdot{}f_{0}\cdot{t})\cdot{}cos(2\pi\cdot{}k\cdot{}f_{0}\cdot{}t)\;dt  \right\rbrace{}= \\
+\end{split}
+\end{multline}
+\noindent{}Da $\int_{0}^{P}cos(2\pi\cdot{}f_{0}\cdot{}t)\;dt=0$ forsvinder 1. led i sidste del af~(\ref{eq:ortho4}). Sidste led forsvinder også (jf. ligning~(\ref{eq:orthocossin})), hvorved~(\ref{eq:ortho4}) reduceres til
+\begin{equation}
+\int_{0}^{P}s(t)\cdot{}cos(2\pi\cdot{}k\cdot{}f_{0}\cdot{}t)\;dt=\sum_{l=1}^{\infty}\left\lbrace{}A_{l}\cdot\int_{0}^{P}cos(2\pi\cdot{}l\cdot{}f_{0}\cdot{t})\cdot{}cos(2\pi\cdot{}k\cdot{}f_{0}\cdot{}t)\;dt\right\rbrace
+\end{equation}
+\noindent{}men da integralet kun er forskellig fra 0 når $k=l$ (jf.~(\ref{eq:orthocoscos})) fås derfor
+\begin{equation}
+\int_{0}^{P}s(t)\cdot{}cos(2\pi\cdot{}k\cdot{}f_{0}\cdot{}t)\;dt=\frac{A_{k}\cdot{}P}{2}
+\end{equation}
+Dvs. for at finde $A_{k}$ i et ukendt (men med en kendt periode, $P$) signal, $s(t)$, skal man blot integrere $s(t)$ multipliceret med $cos(2\pi\cdot{}k\cdot{}f_{0}\cdot{}t)$.
+
+På samme måde kan $B_{k}$ koefficienterne findes ved at integrere $s(t)$ multipliceret med $sin(2\pi\cdot{}k\cdot{}f_{0}\cdot{}t)$, og der fås
+\begin{equation}
+\int_{0}^{P}s(t)\cdot{}sin(2\pi\cdot{}k\cdot{}f_{0}\cdot{}t)\;dt=\frac{B_{k}\cdot{}P}{2}
+\end{equation}
+
+\noindent{}Specielt for $A_{0}$ fås
+\begin{equation}
+\int_{0}^{P}s(t)\cdot{}cos(2\pi\cdot{}0\cdot{}t)\;dt=\int_{0}^{P}s(t)\;dt
+\end{equation}
+\noindent{}der kan betragtes som middelværdien af signalet inden for perioden. Figur~\ref{fig:average} viser to simple signaler af formen $s(t)=A_{0}+A_{1}\cdot{}cos(2\pi\cdot{}f\cdot{}t)$, hvor $A_{1}=1$ i begge tilfælde, men hvor $A_{0}=0$ i venstre graf og $A_{0}=1/4$ i højre graf.
+\begin{figure}[htbp]\centering
+\begin{tabular}{cc}
+\includegraphics[scale=0.5]{average_0} & \includegraphics[scale=0.5]{average_1} \\
+$A_{0}=0$ & $A_{0}=1/4$ \\
+\end{tabular}
+\caption{\label{fig:average}Betydning af $A_{0}$.}
+\end{figure}
+
+\clearpage
+\appendix
+\section{Harmoniske funktioner og ortogonalitet}
+I dette appendiks udledes en række vigtige formler mht. ortogonalitet mellem forskellige harmoniske funktioner. En harmonisk funktion er f.eks.
+\begin{equation}
+v(t)=cos(2\pi\cdot{}f\cdot{}t)
+\end{equation}
+
+\noindent{}Betragt først flg. integrale af en harmonisk funktion med frekvensen $f$ og dermed perioden $P=1/f$. I integralet er $\alpha$ blot et vilkårligt reelt tal.
+\begin{align*}
+\int_{\alpha}^{\alpha+k\cdot{}P}\cos(2\pi\cdot{}f\cdot{}t)\;dt &= \left[ \frac{1}{2\pi\cdot{}f}\sin(2\pi\cdot{}f\cdot{}t)\right]_{\alpha}^{\alpha+k\cdot{}P} \\
+ &= \frac{1}{2\pi\cdot{}f}\left(\sin(2\pi\cdot{}f\cdot{}(\alpha+k\cdot{}P)) - \sin(2\pi\cdot{}f\cdot{}\alpha)\right) \\
+ &= \frac{1}{2\pi\cdot{}f}\left(\sin(2\pi\cdot{}f\cdot{}\alpha + 2\pi\cdot{}f\cdot{}k\cdot{}P) - \sin(2\pi\cdot{}f\cdot{}\alpha)\right) \\
+  &= \frac{1}{2\pi\cdot{}f}\left(\sin(2\pi\cdot{}f\cdot{}\alpha + 2\pi\cdot{}k) - \sin(2\pi\cdot{}f\cdot{}\alpha)\right) \\
+  &= \frac{1}{2\pi\cdot{}f}\left(\sin(2\pi\cdot{}f\cdot{}\alpha)\cos(2\pi\cdot{}k)+\cos(2\pi\cdot{}f\cdot{}\alpha)\sin(2\pi\cdot{}k)-\sin(2\pi\cdot{}f\cdot{}\alpha)\right)\\
+  &= \frac{1}{2\pi\cdot{}f}\left(\sin(2\pi\cdot{}f\cdot{}\alpha)\cdot{}1+\cos(2\pi\cdot{}f\cdot{}\alpha)\cdot{}0-\sin(2\pi\cdot{}f\cdot{}\alpha)\right)\\
+  &= \frac{1}{2\pi\cdot{}f}\left(\sin(2\pi\cdot{}f\cdot{}\alpha)-\sin(2\pi\cdot{}f\cdot{}\alpha)\right)\\
+  &= 0
+\end{align*}
+\noindent{}Det kan vises, at samme resultat fås for $\sin()$. Dvs.: Integralet af en harmonisk funktion over et helt antal perioder er lig 0, uanset hvor intervallet på et helt antal perioder starter. 
+
+Dette resultat skal benyttes i det følgende.
+
+\section{XXX}
+Som beskrevet ovenfor, kan et (kontinuert) periodisk signal, $v(t)$, med perioden $P$ beskrives ved en uendelig sum af harmoniske $\cos()$- og $\sin()$-funktioner med frekvenser, der er et multiplum af grundfrekvensen $f_{0}=1/P$:
+\begin{equation}
+v(t)=\frac{A_{0}}{2}+\sum_{k=1}^{\infty}\left\lbrace{}A_{k}\cos(2\pi\cdot{}k\cdot{}f_{0}\cdot{}t)+B_{k}\sin(2\pi\cdot{}k\cdot{}f_{0}\cdot{}t)\right\rbrace
+\end{equation}
+\noindent{}Omskrives udtrykket under sum-tegnet ved hjælp af Eulers formler fås:
+\begin{align}
+& A_{k}\cos(2\pi\cdot{}k\cdot{}f_{0}\cdot{}t)+B_{k}\sin(2\pi\cdot{}k\cdot{}f_{0}\cdot{}t) = \\
+& \frac{A_{k}}{2}\left(e^{i2\pi\cdot{}k\cdot{}f_{0}\cdot{}t}+e^{-i2\pi\cdot{}k\cdot{}f_{0}\cdot{}t}\right)+\frac{B_{k}}{2i}\left(e^{i2\pi\cdot{}k\cdot{}f_{0}\cdot{}t}-e^{-i2\pi\cdot{}k\cdot{}f_{0}\cdot{}t}\right) =\\
+& \left(\frac{A_{k}}{2}-i\frac{B_{k}}{2}\right)e^{i2\pi\cdot{}k\cdot{}f_{0}\cdot{}t} + \left(\frac{A_{k}}{2}+i\frac{B_{k}}{2}\right)e^{-i2\pi\cdot{}k\cdot{}f_{0}\cdot{}t}
+\end{align}
+\noindent{}Indføres flg. relation:
+\begin{equation}
+V_{k}=\left(\frac{A_{k}}{2}+i\frac{B_{k}}{2}\right)
+\end{equation}
+\noindent{}fås:
+\begin{equation}
+A_{k}\cos(2\pi\cdot{}k\cdot{}f_{0}\cdot{}t)+B_{k}\sin(2\pi\cdot{}k\cdot{}f_{0}\cdot{}t) = V_{k}\cdot{}e^{i2\pi\cdot{}k\cdot{}f_{0}\cdot{}t} + \overline{V_{k}}\cdot{}e^{-i2\pi\cdot{}k\cdot{}f_{0}\cdot{}t}
+\end{equation}
+\noindent{}hvor $\overline{V_{k}}$ betegner den kompleks konjugerede værdi af $V_{k}$. Indføres derfor $V_{-k}=\overline{V_{k}}$ fås endelig:
+\begin{equation}
+A_{k}\cos(2\pi\cdot{}k\cdot{}f_{0}\cdot{}t)+B_{k}\sin(2\pi\cdot{}k\cdot{}f_{0}\cdot{}t) = V_{k}\cdot{}e^{i2\pi\cdot{}k\cdot{}f_{0}\cdot{}t} + V_{-k}\cdot{}e^{-i2\pi\cdot{}k\cdot{}f_{0}\cdot{}t}
+\end{equation}
+\noindent{}Bemærk endvidere, at $V_{0} = A_{0}/2$, da $B_{0} = 0$, som tidligere beskrevet.
+
+Udtrykket i XXXX kan derfor omskrives som følger:
+\begin{align}
+v(t) &= \frac{A_{0}}{2}+\sum_{k=1}^{\infty}\left\lbrace{}A_{k}\cos(2\pi\cdot{}k\cdot{}f_{0}\cdot{}t)+B_{k}\sin(2\pi\cdot{}k\cdot{}f_{0}\cdot{}t)\right\rbrace \\
+ &= V_{0} + \sum_{k=1}^{\infty}\left\lbrace{}V_{k}\cdot{}e^{i2\pi\cdot{}k\cdot{}f_{0}\cdot{}t} + V_{-k}\cdot{}e^{-i2\pi\cdot{}k\cdot{}f_{0}\cdot{}t}\right\rbrace \\
+ &= V_{0} + \sum_{k=1}^{\infty}V_{k}\cdot{}e^{i2\pi\cdot{}k\cdot{}f_{0}\cdot{}t} + \sum_{k=-\infty}^{-1}V_{k}\cdot{}e^{i2\pi\cdot{}k\cdot{}f_{0}\cdot{}t}
+\end{align}
+\noindent{}Da $V_{0}=V_{0}\cdot{}e^{i2\pi\cdot{}0\cdot{}f_{0}\cdot{}t}$ fås endeligt:
+\begin{equation}
+v(t) = \frac{A_{0}}{2}+\sum_{k=1}^{\infty}\left\lbrace{}A_{k}\cos(2\pi\cdot{}k\cdot{}f_{0}\cdot{}t)+B_{k}\sin(2\pi\cdot{}k\cdot{}f_{0}\cdot{}t)\right\rbrace = \sum_{k=-\infty}^{\infty}V_{k}\cdot{}e^{i2\pi\cdot{}k\cdot{}f_{0}\cdot{}t}
+\end{equation}
+
+\noindent{}Dvs. en periodisk funktion, $v(t)$ kan derfor også skrives som en uendelig sum af vægtede komplekse harmoniske funktioner. Udtrykket til sidst i XXXX kaldes også for Fourierrækken for $v(t)$.
+
+\section{XXX}
+To komplekse harmoniske funktioner, $e^{i2\pi\cdot{}k_{1}\cdot{}f_{0}\cdot{}t}$ og $e^{i2\pi\cdot{}k_{2}\cdot{}f_{0}\cdot{}t}$ med perioden $P=1/f_{0}$, er indbyrdes ortogonale for $k_{1}\ne{}k_{2}$:
+\begin{align}
+\int_{0}^{P}\left\lbrace{}e^{i2\pi\cdot{}k_{1}\cdot{}f_{0}\cdot{}t}\cdot\overline{e^{i2\pi\cdot{}k_{2}\cdot{}f_{0}\cdot{}t}}\right\rbrace\;dt &=
+\int_{0}^{P}\left\lbrace{}e^{i2\pi\cdot{}k_{1}\cdot{}f_{0}\cdot{}t}\cdot{}e^{-i2\pi\cdot{}k_{2}\cdot{}f_{0}\cdot{}t}\right\rbrace\;dt \\
+&=\int_{0}^{P} e^{i2\pi\cdot{}(k_{1}-k_{2})\cdot{}f_{0}\cdot{}t}\;dt\\
+&=\left[\frac{1}{i2\pi\cdot{}(k_{1}-k_{2})\cdot{}f_{0}}e^{i2\pi\cdot{}(k_{1}-k_{2})\cdot{}f_{0}\cdot{}t}\right]_{0}^{P}\\
+&=\frac{1}{i2\pi\cdot{}(k_{1}-k_{2})\cdot{}f_{0}}\left(e^{i2\pi\cdot{}(k_{1}-k_{2})\cdot{}f_{0}\cdot{}P}-e^{i2\pi\cdot{}(k_{1}-k_{2})\cdot{}f_{0}\cdot{}0}\right)\\
+&=\frac{1}{i2\pi\cdot{}(k_{1}-k_{2})\cdot{}f_{0}}\left(e^{i2\pi\cdot{}(k_{1}-k_{2})}-1\right)\\
+&=\frac{1}{i2\pi\cdot{}(k_{1}-k_{2})\cdot{}f_{0}}(1-1)\\
+&=0
+\end{align}
+\noindent{}For $k_{1}=k_{2}$ fås derimod
+\begin{align}
+\int_{0}^{P}\left\lbrace{}e^{i2\pi\cdot{}k_{1}\cdot{}f_{0}\cdot{}t}\cdot\overline{e^{i2\pi\cdot{}k_{2}\cdot{}f_{0}\cdot{}t}}\right\rbrace\;dt &= 
+\int_{0}^{P}\left\lbrace{}e^{i2\pi\cdot{}k_{1}\cdot{}f_{0}\cdot{}t}\cdot{}e^{-i2\pi\cdot{}k_{2}\cdot{}f_{0}\cdot{}t}\right\rbrace\;dt \\
+&=\int_{0}^{P} e^{i2\pi\cdot{}(k_{1}-k_{2})\cdot{}f_{0}\cdot{}t}\;dt\\
+&=\int_{0}^{P} e^{i2\pi\cdot{}0\cdot{}f_{0}\cdot{}t}\;dt\\
+&=P
+\end{align}
+
+\section{XXXX}
+I de følgende udledninger benyttes flg. velkendte trigonometriske multiplikationsformler:
+\begin{gather*}
+\cos(A)\cos(B)=\frac{1}{2}\cos(A+B)+\frac{1}{2}\cos(A-B)\\
+\sin(A)\sin(B)=\frac{1}{2}\cos(A+B)-\frac{1}{2}\cos(A-B)
+\end{gather*}
+
+\noindent{}Herved kan det udregnes, at
+\begin{equation}
+\begin{split}
+&\int_{0}^{P}\cos(2\pi\cdot{}k\cdot{}f_{0}\cdot{}t)\cdot{}\cos(2\pi\cdot{}k\cdot{}f_{0}\cdot{}t)\;dt=\\ &\qquad\int_{0}^{P}\left\lbrace\frac{1}{2}\cos(2\pi\cdot{}(2k)\cdot{}f_{0}\cdot{}t)+\frac{1}{2}\cos(2\pi\cdot{}0\cdot{}f_{0}\cdot{}t)\right\rbrace\;dt = \\
+&\qquad\int_{0}^{P}\frac{1}{2}\cos(2\pi\cdot{}(2k)\cdot{}f_{0}\cdot{}t)\;dt+\int_{0}^{P}\frac{1}{2}\cos(2\pi\cdot{}0\cdot{}f_{0}\cdot{}t)\;dt\\
+&\qquad\int_{0}^{P}\frac{1}{2}\cos(2\pi\cdot{}(2k)\cdot{}f_{0}\cdot{}t)\;dt+\int_{0}^{P}\frac{1}{2}\;dt=\\
+&\qquad\frac{P}{2}
+\end{split}
+\end{equation}
+
+\noindent{}På tilsvarende måde fås med $\sin()$-funktioner:
+\begin{equation}
+\int_{0}^{P}\sin(2\pi\cdot{}k\cdot{}f_{0}\cdot{}t)\cdot{}\sin(2\pi\cdot{}k\cdot{}f_{0}\cdot{}t)\;dt=\frac{P}{2}
+\end{equation}
+
+And now for something completely different:
+\begin{align}
+\int_{0}^{P}\left\lbrace{}e^{i2\pi\cdot{}k_{1}\cdot{}f_{0}\cdot{}t}\cdot\overline{e^{i2\pi\cdot{}k_{2}\cdot{}f_{0}\cdot{}t}}\right\rbrace\;dt &=
+\int_{0}^{P}\left\lbrace{}e^{i2\pi\cdot{}k_{1}\cdot{}f_{0}\cdot{}t}\cdot{}e^{-i2\pi\cdot{}k_{2}\cdot{}f_{0}\cdot{}t}\right\rbrace\;dt \\
+&=\int_{0}^{P} e^{i2\pi\cdot{}(k_{1}-k_{2})\cdot{}f_{0}\cdot{}t}\;dt\\
+&=\left[\frac{1}{i2\pi\cdot{}(k_{1}-k_{2})\cdot{}f_{0}}e^{i2\pi\cdot{}(k_{1}-k_{2})\cdot{}f_{0}\cdot{}t}\right]_{0}^{P}\\
+&=\frac{1}{i2\pi\cdot{}(k_{1}-k_{2})\cdot{}f_{0}}\left(e^{i2\pi\cdot{}(k_{1}-k_{2})\cdot{}f_{0}\cdot{}P}-e^{i2\pi\cdot{}(k_{1}-k_{2})\cdot{}f_{0}\cdot{}0}\right)\\
+&=\frac{1}{i2\pi\cdot{}(k_{1}-k_{2})\cdot{}f_{0}}\left(e^{i2\pi\cdot{}(k_{1}-k_{2})}-1\right)\\
+&=\frac{1}{i2\pi\cdot{}(k_{1}-k_{2})\cdot{}f_{0}}(1-1)\\
+&=0
+\end{align}
+
+
+\begin{align}
+\int_{0}^{P}\left\lbrace{}e^{i2\pi\cdot{}k_{1}\cdot{}f_{0}\cdot{}t}\cdot\overline{e^{i2\pi\cdot{}k_{2}\cdot{}f_{0}\cdot{}t}}\right\rbrace\;dt &= 
+\int_{0}^{P}\left\lbrace{}e^{i2\pi\cdot{}k_{1}\cdot{}f_{0}\cdot{}t}\cdot{}e^{-i2\pi\cdot{}k_{2}\cdot{}f_{0}\cdot{}t}\right\rbrace\;dt \\
+&=\int_{0}^{P} e^{i2\pi\cdot{}(k_{1}-k_{2})\cdot{}f_{0}\cdot{}t}\;dt\\
+&=\int_{0}^{P} e^{i2\pi\cdot{}0\cdot{}f_{0}\cdot{}t}\;dt\\
+&=P
+\end{align}
+En særlig type funktioner, der er relevante i forbindelse med analyse af signaler, er harmoniske funktioner. Eksempler på relevante reelle  harmoniske funktioner er:
+\[
+\cos(2\pi\cdot{}f\cdot{}t)\quad\textrm{ og }\quad\sin(2\pi\cdot{}f\cdot{}t)
+\]
+\noindent{}hvor $f$ er en vilkårlig frekvens. Det er også relevant i denne note, at introducere den komplekse harmoniske funktion ($\mathbb{R}\mapsto\mathbb{C}$)
+\[
+e^{i2\pi\cdot{}f\cdot{}t}
+\]
+\noindent{}der som bekendt er relateret til de ovennævnte reelle harmoniske funktioner ved sammenhængen:
+\[
+e^{i2\pi\cdot{}f\cdot{}t} = \cos(2\pi\cdot{}f\cdot{}t) + i\cdot\sin(2\pi\cdot{}f\cdot{}t)
+\]
+
+\section{Ortogonalitet}
+I forbindelse med de senere beskrivelser i undervisningsnoten, er begrebet \emph{ortogonalitet} mellem funktioner meget relevant. 
+
+\noindent{}For komplekse funktioner af typen $s_{1},s_{2}:\mathbb{R}\rightarrow\mathbb{C}$ er det tilsvarende krav om ortogonalitet, at 
+\begin{equation}\label{eq:ortho}
+\int_{a}^{b} s_{1}(t)\cdot{}\overline{s_{2}(t)}\;{}dt = 0
+\end{equation}
+\noindent{}hvor $\overline{X}$ betegner den komplekst konjugerede værdi af $X$. For  komplekse harmoniske eksponentialfunktioner gælder, at to komplekse harmoniske funktioner, $e^{i2\pi\cdot{}k_{1}\cdot{}f_{0}\cdot{}t}$ og $e^{i2\pi\cdot{}k_{2}\cdot{}f_{0}\cdot{}t}$ med perioden $P=1/f_{0}$, er indbyrdes ortogonale for $k_{1}\ne{}k_{2}$:
+\begin{equation}
+\int_{0}^{P}\left\lbrace{}e^{i2\pi\cdot{}k_{1}\cdot{}f_{0}\cdot{}t}\cdot\overline{e^{i2\pi\cdot{}k_{2}\cdot{}f_{0}\cdot{}t}}\right\rbrace\;dt = 0
+\end{equation}
+\noindent{}For $k_{1}=k_{2}$ fås derimod
+\begin{align}
+\int_{0}^{P}\left\lbrace{}e^{i2\pi\cdot{}k_{1}\cdot{}f_{0}\cdot{}t}\cdot\overline{e^{i2\pi\cdot{}k_{2}\cdot{}f_{0}\cdot{}t}}\right\rbrace\;dt = P 
+\end{align}
+
+
+\section{Kort om ikke-periodiske signaler}
+Et ikke-periodisk signal er et signal, der ikke opfylder formel XXXX for nogen endelig værdi af $P$. Helt uformelt kan man dog vælge at betragte et ikke-periodisk signal som et periodisk signal med en uendelig stor periode, dvs. $P\rightarrow\infty$. Dette har nogen konsekvenser for repræsentationen af signalet i frekvensdomænet.
+
+Et periodisk signal med en endelig periode indeholdt kun frekvenser, der var en multiplum af grundfrekvensen $f_0 = 1/P$. For et periodisk signal med en uendelig stor periode vil dette svare til, at signalet har et bidrag ved alle frekvenser, og i stedet for at beskrive signalet (i frekvensdomænet) ved diskrete Fourierkoefficenter, må man i stedet beskrive signalet ved en kontinuert funktion, kaldet signalets spektrum, $V(f)$. Der vil dog stadig gælde, at $V(f)=\overline{V(-f)}$.
+
+Dette medfører så, at man ikke kan udregne signalet i tidsdomænet via en sum, da vi nu skal summere frekvensbidrag der ligger uendelig tæt. Dvs. udregning af signalet i tidsdomænet skal ske ved et integrale over signalets spektrum, $V(f)$, dog multipliceret med en kompleks eksponentialfunktion som før.
+
+\noindent{}Dvs., kender vi signalet spektrum, $V(f)$ kan signalet i tidsdomænet udregnes som
+\begin{equation}
+v(t) = \int\limits_{-\infty}^{\infty} V(f)e^{i2\pi\cdot{}f\cdot{}t}\;dt
+\end{equation}
+
+\noindent{}Signalets spektrum kan på tilsvarende måde udregnes som
+\begin{equation}
+V(f) = \int\limits_{-\infty}^{\infty} v(t)e^{-i2\pi\cdot{}f\cdot{}t}\;dt
+\end{equation}

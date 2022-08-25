@@ -1,0 +1,154 @@
+\documentclass[dvips,11pt,a4paper]{article}
+
+\usepackage[danish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+%%
+%% Set non-standard dimensions for the page layout
+%%
+\setlength{\hoffset}{0pt}
+\setlength{\voffset}{0pt}
+\setlength{\oddsidemargin}{0pt}
+\setlength{\evensidemargin}{0pt}
+\setlength{\textwidth}{16cm}
+\setlength{\topmargin}{-37pt}
+\setlength{\textheight}{670pt}
+\setlength{\footskip}{60pt}
+
+
+\title{PAM-signaler i MATLAB}
+\author{Lars Staalhagen\\{\small larst@fotonik.dtu.dk}}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\noindent{}Dette dokument beskriver brugen af foldningsfunktionen i MATLAB som en metode til at generere et PAM-signal, også kaldet et ''pulstog''.
+
+Et PAM-signal i kontinuert tid kan helt generelt defineres via formel\footnote{Jf. også formel (5.1) i Knud J. Larsen, ''Introduktion til digital kommunikation'', 2017, hvor der dog er tale om, at informationssymbolerne, $a_k$ er defineret for alle $k$-værdier. I denne note vil $a_k$ dog kun være relevante for $k\ge{}0$.}~(\ref{eq:pamanalog})
+\begin{equation}
+v(t)=\sum_{k=0}^{\infty} a_{k} \cdot g(t-k \cdot T)
+\label{eq:pamanalog}
+\end{equation}
+hvor
+\begin{itemize}
+\item $a_k$ er informationssymboler ($k=0,1,2,\ldots$).
+\item $g(t)$ er pulsformen
+\item $T$ er symbolperioden, dvs. tidsintervallet mellem to $a_k$-symboler skal sendes.
+\end{itemize}
+
+\noindent{}I digitale kommunikationssystemer er vi dog kun interesseret i signalerne til diskrete tidspunkter, dvs. de analoge signaler er blevet digitaliseret (dvs. samplet og kvantiseret) og vi er derfor kun interesseret i værdierne til tidspunkterne $t = n \cdot T_{s}$, hvor $T_s$ er samplingsintervallet og $n = 0,1,2,\ldots$. En tidsdiskret udgave af ligning~(\ref{eq:pamanalog}) fås derfor ved at erstatte $t$ med $n \cdot T_s$ i ligning~(\ref{eq:pamanalog}):
+\begin{equation}
+v(n \cdot T_{s})=\sum_{k=0}^{\infty} a_{k} \cdot g(n \cdot T_{s}-k \cdot T)
+\label{eq:pamdiskret2}
+\end{equation}
+
+\noindent{}I praksis vil samplingsintervallet, $T_s$, være valgt så $T = m \cdot T_s$ ($m \in \mathbb{N}$) for en passende værdi af $m$. Herved kan ligning~(\ref{eq:pamdiskret2}) omskrives
+\begin{align}
+v(n \cdot T_{s}) &= \sum_{k=0}^{\infty} a_{k} \cdot g(n \cdot T_{s}-k \cdot m \cdot T_s) \\
+ &= \sum_{k=0}^{\infty} a_{k} \cdot g((n - k \cdot m) \cdot T_{s}) 
+\end{align}
+
+\noindent{}Indføres derefter notationen $x_n$ som en kortere måde at skrive $x(n \cdot T_s)$ på fås:
+\begin{equation}
+v_n = \sum_{k=0}^{\infty} a_{k} \cdot g_{n - k \cdot m}
+\label{eq:pamdiskret}
+\end{equation}
+
+\noindent{}Opskrives de første par værdier af $v_n$ til illustration fås:
+\begin{align*}
+v_0 &= a_{0}\cdot{}g_{0} + a_{1}\cdot{}g_{-m} + a_{2}\cdot{}g_{-2m} + \ldots \\
+v_1 &= a_{0}\cdot{}g_{1} + a_{1}\cdot{}g_{1-m} + a_{2}\cdot{}g_{1-2m} + \ldots \\
+v_2 &= a_{0}\cdot{}g_{2} + a_{1}\cdot{}g_{2-m} + a_{2}\cdot{}g_{2-2m} + \ldots \\ &\vdots
+\end{align*}
+dvs. helt generelt kan udtrykket for $v_n$ skrives som
+\begin{equation}
+v_{n} = a_{0}\cdot{}g_{n} + a_{1}\cdot{}g_{n-m} + a_{2}\cdot{}g_{n-2m} + \ldots{} 
+\label{eq:v_n}
+\end{equation}
+
+\noindent{}Inden for matematikken defineres {\em foldningen} af to tidsdiskrete sekvenser som vist i ligning~(\ref{eq:mathconv}) (hvoraf den ene sekvens blot kan være den samme som $g_k$-sekvensen ovenfor)
+\begin{equation}
+y_n = \sum_{l=0}^{\infty} b_{l} \cdot g_{n-l}
+\label{eq:mathconv}
+\end{equation}
+
+\noindent{}Det ses, at ligningerne~(\ref{eq:pamdiskret}) og~(\ref{eq:mathconv}) har næsten samme form, og da MATLAB har en indbygget funktion, kaldet \texttt{conv()}, der implementerer\footnote{I MATLAB vil der naturligvis være tale om, at både $b$- og $g$-sekvenserne har en endelig længde, men det er faktisk ikke nødvendigt i formel~(\ref{eq:mathconv}).}  ligning~(\ref{eq:mathconv}), er det nærliggende at forsøge at omskrive ligning~(\ref{eq:pamdiskret}), så den har samme form som ligning~(\ref{eq:mathconv}), så et PAM-signal i MATLAB kan genereres via MATLAB's \texttt{conv()}-funktion.
+
+Opskrives på samme måde de første værdier af $y_n$ ud fra ligning~(\ref{eq:mathconv}) fås:
+\begin{align*}
+y_0 &= b_{0}\cdot{}g_{0} + b_{1}\cdot{}g_{-1} + b_{2}\cdot{}g_{-2} + \ldots + b_{m}\cdot{}g_{-m} + \ldots +  b_{2m}\cdot{}g_{-2m} + \ldots \\
+y_1 &= b_{0}\cdot{}g_{1} + b_{1}\cdot{}g_{0} + b_{2}\cdot{}g_{-1} + \ldots + b_{m}\cdot{}g_{1-m} + \ldots +  b_{2m}\cdot{}g_{1-2m} + \ldots \\
+y_2 &= b_{0}\cdot{}g_{2} + b_{1}\cdot{}g_{1} + b_{2}\cdot{}g_{0} + \ldots + b_{m}\cdot{}g_{2-m} + \ldots +  b_{2m}\cdot{}g_{2-2m} + \ldots \\
+ &\vdots
+\end{align*}
+som generelt kan skrives som
+\begin{equation}
+y_n = b_{0}\cdot{}g_{n} + b_{1}\cdot{}g_{n-1} + b_{2}\cdot{}g_{n-2} + \ldots + b_{m}\cdot{}g_{n-m} + \ldots +  b_{2m}\cdot{}g_{n-2m} + \ldots
+\label{eq:y_n}
+\end{equation}
+
+\noindent{}Ved at opskrive ligningerne~(\ref{eq:v_n}) og~(\ref{eq:y_n}) sammen (og tilføje nogle led med værdien 0 til udtrykket for $v_n$) fås:
+\begin{align*}
+v_{n} = a_{0}\cdot{}g_{n} &+ 0\cdot{}g_{n-1} + 0\cdot{}g_{n-2} + \ldots + 0\cdot{}g_{n-m+1}\\
+&+ a_{1}\cdot{}g_{n-m} + 0\cdot{}g_{n-m-1} + 0\cdot{}g_{n-m-2} + \ldots + 0\cdot{}g_{n-2m+1}\\
+&+ a_{2}\cdot{}g_{n-2m} + \ldots{} \\
+y_{n} = b_{0}\cdot{}g_{n} &+ b_{1}\cdot{}g_{n-1} + b_{2}\cdot{}g_{n-2} + \ldots + b_{m-1}\cdot{}g_{n-m+1} \\
+&+ b_{m}\cdot{}g_{n-m} + b_{m+1}\cdot{}g_{n-m-1} + b_{m+2}\cdot{}g_{n-m-2} + \ldots + b_{2m-1}\cdot{}g_{n-2m+1}\\
+&+ b_{2m}\cdot{}g_{n-2m} + \ldots \\
+\end{align*}
+
+\noindent{}Det ses herved, at udtrykkene for hhv. $v_n$ og $y_n$ kan bringes til at stemme overens, dvs. at $v_n = y_n$ som ønsket, hvis $b_l$-sekvensen udregnes ud fra $a_k$ sekvensen på følgende måde:
+\begin{align*}
+b_{0}&=a_{0},\\
+b_{1}&=b_{2}=\ldots{}=b_{m-1}=0,\\
+b_{m}&=a_{1},\\
+b_{m+1}&=b_{m+2}=\ldots{}=b_{2m-1}=0,\\
+b_{2m}&=a_{2}\\
+&\vdots
+\end{align*}
+hvilket også kan skrives som
+%\[
+%b_{l}=\begin{cases}
+%a_{l/m} &\textrm{for }l=k\cdot{}m\textrm{ hvor }(k\in{}\mathbb{N}_{0}) \\
+%0 &\textrm{ellers}
+%\end{cases}
+%\]
+%eller
+\[
+b_{l}=\left\lbrace
+\begin{array}{ll}
+a_{l/m} & \textrm{for }l=k\cdot{}m\textrm{ hvor }(k\in{}\mathbb{N}_{0}) \\
+ & \\
+0 & \textrm{ellers}\\
+\end{array}
+\right.
+\]
+
+\noindent{}Dvs. $b_{l}$ sekvensen dannes ud fra $a_{k}$ sekvensen ved at der "indsættes" $m-1$ stk. 0'er mellem de oprindelige værdier, dvs. som
+\[
+a_0,0,0,\ldots,0,a_1,0,0,\ldots,0,a_2,0,0,\ldots
+\]
+
+\noindent{}Dvs. det er muligt at generere/udregne et PAM-signal i MATLAB på flg. måde:
+\begin{enumerate}
+\item Lav en \emph{opsamplet} version, kaldet $au_l$ (som svarer til $b_l$-sekvensen ovenfor), af $a_k$-sekvensen ved at indsætte $m-1$ 0-værdier efter hver værdi fra $a_k$-sekvensen.
+\item Udregn foldningen af $au_l$ og $g_l$ via MATLAB's \texttt{conv()}-funktion
+\end{enumerate}
+
+\noindent{}Dvs. flg. MATLAB kode kan benyttes til at generere et pulstog:
+\begin{verbatim}
+a = ...;  % Informationssekvens
+m = ...;  % Antallet af samples pr. symbolperiode
+g = ...;  % Udtryk for pulsformen
+au = [a; zeros(m-1,length(a))];
+au = reshape(au,1,[]);
+v = conv(au,g);
+\end{verbatim}
+
+\noindent{}
+
+\end{document}
